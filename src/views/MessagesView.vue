@@ -63,6 +63,7 @@ export default { name: 'Messages' };
                                 <td>Message</td>
                                 <td>Type</td>
                                 <td class="text-end">Number</td>
+                                <td class="text-center">Sended</td>
                                 <td class="text-center">Action</td>
                             </tr>
                         </thead>
@@ -71,6 +72,7 @@ export default { name: 'Messages' };
                                 <td>{{ message.message.slice(0, 250) }}</td>
                                 <td>{{ message.type }}</td>
                                 <td class="text-end">{{ message.number }}</td>
+                                <td class="text-center">{{ message.sended === 0 ? 'No' : 'Si' }}</td>
                                 <td class="text-center">
                                     <div class="col ">
                                         <div class="btn-group">

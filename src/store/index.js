@@ -25,12 +25,18 @@ const store = createStore({
         return data;
       });
     },
-    logout: (state) => {
-      console.log(state)
-      state.user.data = {};
-      state.user.token = null;
-      sessionStorage.removeItem("Token");
-      sessionStorage.removeItem("id");
+    logout({ commit }) {
+      return axiosClient
+        .post("/logout")
+        .then(({ data }) => {
+          commit("logout");
+          console.log("logout");
+          return data;
+        })
+        .catch((error) => {
+          commit("logout");
+          return error;
+        });
     },
     SaveMessage({ commit }, ModelMessage) {
       return axiosClient.post("/messages", ModelMessage).then(({ data }) => {
@@ -41,21 +47,17 @@ const store = createStore({
       });
     },
     GetMessages({ commit }) {
-      return axiosClient
-        .get(`/messages`)
-        .then((res) => {
-          commit("setMessages", res.data.data);
-          return res;
-        })
+      return axiosClient.get(`/messages`).then((res) => {
+        commit("setMessages", res.data.data);
+        return res;
+      });
     },
     GetHistories({ commit }) {
-      return axiosClient
-        .get(`/history`)
-        .then((res) => {
-          commit("setHistories", res.data.data);
-          return res;
-        })
-    }
+      return axiosClient.get(`/history`).then((res) => {
+        commit("setHistories", res.data.data);
+        return res;
+      });
+    },
   },
   mutations: {
     setUser: (state, userData) => {
@@ -63,6 +65,12 @@ const store = createStore({
       state.user.data = userData.usuario;
       sessionStorage.setItem("Token", userData.token);
       sessionStorage.setItem("id", userData.usuario.rol_id);
+    },
+    logout: (state) => {
+      state.user.data = {};
+      state.user.token = null;
+      sessionStorage.removeItem("Token");
+      sessionStorage.removeItem("id");
     },
     setMessages: (state, Message) => {
       state.messages.data = Message;
