@@ -52,6 +52,27 @@ const store = createStore({
         return res;
       });
     },
+    GetMessageById({ commit }, id) {
+      return axiosClient.get(`/messages/${id}`).then((res) => {
+        return res.data;
+      }).catch((error) => {
+        throw error;
+      });
+    },
+    EditMessage({ commit }, message) {
+      return axiosClient.put(`/messages/${message.id}`, message).then((res) => {
+        return res.data;
+      }).catch((error) => {
+        throw error;
+      });
+    },
+    DeleteMessage({ commit }, id) {
+      return axiosClient.delete(`/messages/${id}`).then((res) => {
+        return res.data;
+      }).catch((error) => {
+        throw error;
+      });
+    },
     GetHistories({ commit }) {
       return axiosClient.get(`/history`).then((res) => {
         commit("setHistories", res.data.data);

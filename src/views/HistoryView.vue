@@ -6,7 +6,7 @@ export default { name: 'History' };
     <div class="col-12 text-center">
         <div class="row d-flex justify-content-center mx-3">
             <div class="col-12 col-lg-10">
-                <div class="card">
+                <div class="card" v-if="histories.length == 0">
                     <div class="card-header d-flex align-items-center">
                         <span class="material-icons text-danger">
                             list_alt
@@ -30,6 +30,7 @@ export default { name: 'History' };
                         </table>
                     </div>
                 </div>
+                <b v-else>There are no histories registered in the database</b>
             </div>
         </div>
     </div>
